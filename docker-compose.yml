@@ -13,3 +13,18 @@ services:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@127.0.0.1:9093
       - ALLOW_PLAINTEXT_LISTENER=yes
+
+  # Banco de dados próprio do microsserviço de Eventos
+  postgres-eventos:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=eventosdb
+      - POSTGRES_USER=eventos
+      - POSTGRES_PASSWORD=eventos
+    volumes:
+      - postgres-eventos-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-eventos-data:
